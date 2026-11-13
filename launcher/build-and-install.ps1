@@ -75,7 +75,7 @@ $start = (& $py -I ..\tools\tv.py 'am start -W -a android.intent.action.MAIN -c 
 Write-Host $start
 if ($start -notmatch 'Status: ok' -or $start -match '(?m)^Error') { throw "the new launcher did not start (see above); $StockLauncher was left enabled" }
 @(
-    'pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted',
+    'pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION 2>/dev/null; pm grant com.gathin.tvhome android.permission.NEARBY_WIFI_DEVICES 2>/dev/null; echo location-granted',
     'cmd package compile -m speed -f com.gathin.tvhome',
     $disableStock,
     'cmd package set-home-activity --user 0 com.gathin.tvhome/.MainActivity'

@@ -9,11 +9,16 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- Needed since Android 10 to read the Wi-Fi network name for the network pill. Never requested at
-         runtime: build-and-install grants it with pm grant, so lint's Android 12 "ask for COARSE with
-         FINE" rule does not apply here. -->
+    <!-- Wi-Fi name on the network pill, only after DisclosureActivity's Agree.
+         Android 10–12 require fine location to read the SSID. The launcher does not read GPS.
+         build-and-install still grants it with pm grant, so a sideload does not depend on the dialog.
+         maxSdk 32: from Android 13 the nearby-Wi-Fi permission below replaces it. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:maxSdkVersion="32"
         tools:ignore="CoarseFineLocation" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="tiramisu" />
     <!-- Puts the remote's accessibility helpers back after a force stop of this app took them off the enabled
          list (ServiceRepair). Granted with pm grant by build-and-install when a helper is enabled. -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"

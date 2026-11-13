@@ -145,4 +145,13 @@
     <!-- Cinematic top shelf (cinematic_home): the line under the focused dock app's name; %1$s is when it was
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Last opened %1$s</string>
+    <string name="store_data_title">Wi-Fi name</string>
+    <string name="store_data_body">Shows the Wi-Fi name on the network button. Not sent off the TV. No internet access. Android 12 and older: location permission, no GPS, location not shared. Android 13 and newer: nearby Wi-Fi devices, not location. Not now leaves the button as Wi-Fi.</string>
+    <string name="store_agree">Agree</string>
+    <string name="store_not_now">Not now</string>
+    <string name="store_a11y_title">Remote buttons</string>
+    <string name="store_a11y_body">Helpers use accessibility for remote keys only, not the screen. Input opens the input list. A wrong Home key opens this home. Keys are not shared. Not a disability tool. Not now leaves Home usable. Agree does not enable them. Settings open if they are off.</string>
+    <string name="store_privacy">Privacy policy</string>
+    <string name="store_close">Close</string>
+    <string name="store_privacy_body">Privacy policy. com.gathin.tvhome. Publisher: Martin Pohl. https://github.com/Gathin23/cleanyourtv. Nothing is collected or sent off the TV. No internet, account, ads, analytics, or server. On the TV: app list, Wi-Fi name after Agree, remote keys after Agree, and link type. Not sold or shared. Clear storage or uninstall deletes choices. No account.</string>
 </resources>

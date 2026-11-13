@@ -34,6 +34,7 @@ until the 19th; old links work.
 **Official links:** the website is [cleanyour.tv](https://cleanyour.tv) and the code, launcher and
 tools live only in this repo. Other domains using the name, such as cleanyourtv.com, are not run by
 this project ([#1004](https://github.com/Gathin23/cleanyourtv/issues/1004)).
+Play listing drafts for the launcher, not a store submission: [store/README.md](store/README.md).
 
 ## How it works
 
@@ -548,6 +549,8 @@ and a wallpaper.
     clears them too.
   - **Choose default home** opens Android's home picker, and **TV system settings** the TV's own settings
     page.
+  - **Privacy policy** is this launcher's policy, shown on the TV. **Remote buttons** asks again before
+    the optional helpers may use remote keys.
 - **Change the default home:** Launcher settings and the optional Default-home tile
   (`show_home_settings_shortcut`) open Android's home picker. Choose the original launcher to stop using
   CleanYourTV as Home, or CleanYourTV to return. The original launcher must be enabled; if the install

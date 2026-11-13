@@ -460,9 +460,11 @@ Things that bit us or contributors, so they don't bite you. Commands use `tools/
   `tools/tv.py 'cmd alarm set-timezone GMT+03:30'`. The same applies to any country whose rules
   changed after the firmware was built.
 - **The network pill says "Wi-Fi" instead of the network name** after `pm clear com.gathin.tvhome`
-  or a reinstall from scratch: clearing the launcher's data also drops the location permission
-  Android 10 needs to read the SSID. `pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION`
-  (the install script does this).
+  or a reinstall from scratch: clearing the launcher's data drops the permission Android needs to
+  read the SSID, and the Wi-Fi question has to be answered Agree. Android 12 and older:
+  `pm grant com.gathin.tvhome android.permission.ACCESS_FINE_LOCATION`. Android 13 and newer:
+  `pm grant com.gathin.tvhome android.permission.NEARBY_WIFI_DEVICES`. The install script grants
+  whichever the TV still accepts. Not now on that question leaves the pill as Wi-Fi on purpose.
 - **Home is "Select a Home app"** after `tools/restore.sh` followed by re-applying a list: disabling a
   package that also claims HOME (PatchWall on Xiaomi) makes Android drop the default. The install
   script now picks the known stock launcher among the candidates by itself; otherwise choose one on

@@ -1,7 +1,8 @@
 # Store drafts for the CleanYourTV launcher
 
-These pages are preparation for a possible Google Play and Samsung Galaxy Store listing of the
-**launcher** in this repo (`com.gathin.tvhome`, version 2.8). Nothing here was uploaded.
+These pages are the Google Play listing for the Android TV build of the launcher
+(`com.gathin.tvhome`, version 2.8). The upload is the `play` variant: `./gradlew bundlePlay`
+in `launcher/`. Nothing here was uploaded.
 
 This is not the separate community phone app (`tv.cleanyour.app`), which connects to a TV over ADB.
 That app is not in this repository and these drafts do not describe it.

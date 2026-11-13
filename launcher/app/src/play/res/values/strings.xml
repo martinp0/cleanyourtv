@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Play has no remote-button helpers. The sideload string still names them. -->
+    <string name="store_privacy_body">Privacy policy. com.gathin.tvhome. Publisher: Martin Pohl. https://github.com/Gathin23/cleanyourtv. Nothing is collected or sent off the TV. No internet, account, ads, analytics, or server. On the TV: app list, Wi-Fi name after Agree, and link type (Wi-Fi, Ethernet, or offline). Not sold or shared. Clear storage or uninstall deletes choices. No account.</string>
+</resources>

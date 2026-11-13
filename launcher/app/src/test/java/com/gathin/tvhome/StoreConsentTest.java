@@ -25,6 +25,14 @@ public class StoreConsentTest {
     }
 
     @Test
+    public void playBuildSkipsTheRemoteButtonQuestion() {
+        assertEquals(StoreConsent.KIND_DATA,
+                StoreConsent.nextKind(StoreConsent.UNSET, StoreConsent.UNSET, false));
+        assertNull(StoreConsent.nextKind(StoreConsent.YES, StoreConsent.UNSET, false));
+        assertNull(StoreConsent.nextKind(StoreConsent.NO, StoreConsent.UNSET, false));
+    }
+
+    @Test
     public void bothAnswersLeaveNoFurtherQuestion() {
         assertNull(StoreConsent.nextKind(StoreConsent.YES, StoreConsent.NO));
         assertNull(StoreConsent.nextKind(StoreConsent.NO, StoreConsent.YES));

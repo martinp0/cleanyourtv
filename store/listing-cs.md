@@ -23,10 +23,7 @@ Nahradí původní plochu černou obrazovkou, dockem vašich aplikací a mříž
 
 Aplikace se nepřipojuje k internetu. Nemá oprávnění k internetu. Nic, co vidí, se z televize neodesílá.
 
-Co umí, a jen poté, co na obrazovce souhlasíte:
-
-- Ukázat název sítě Wi-Fi na tlačítku sítě. Název zůstává v televizi. Na Androidu 12 a starším Android vyžaduje oprávnění k poloze, aby šel název přečíst. Aplikace nepoužívá GPS. Na Androidu 13 a novějším žádá o zařízení Wi-Fi v okolí, ne o polohu. Když odmítnete, tlačítko říká Wi-Fi.
-- Volitelní pomocníci tlačítek ovladače. Používají službu usnadnění přístupu Androidu, aby poznali klávesu ovladače, ne aby četli obrazovku. Jeden otevře seznam vstupů po stisku Input. Druhý otevře tuto plochu, když ovladač pošle špatnou klávesu Domů. Jsou vypnutí, dokud neodsouhlasíte a potom je nezapnete v nastavení usnadnění. Nejde o nástroj pro lidi s postižením.
+Po souhlasu na obrazovce může ukázat název sítě Wi-Fi na tlačítku sítě. Název zůstává v televizi. Na Androidu 12 a starším Android vyžaduje oprávnění k poloze, aby šel název přečíst. Aplikace nepoužívá GPS. Na Androidu 13 a novějším žádá o zařízení Wi-Fi v okolí, ne o polohu. Když odmítnete, tlačítko říká Wi-Fi.
 
 Seznam aplikací v televizi se čte jen kvůli dlaždicím. Zůstává v televizi.
 
@@ -38,6 +35,6 @@ Toto stažení nevypíná ani neodinstalovává jiné aplikace, nezapíná ADB a
 
 ## Kategorie
 
-Přizpůsobení (Personalization)
+Jen Android TV. Nepřidávejte telefony ani tablety.
 
-Pokud budete distribuovat i formu Android TV a ten katalog kategorii Přizpůsobení nemá, zařaďte televizní formu pod Zábava (Entertainment) a v popisu napište, že jde o domovskou obrazovku.
+Televizní aplikaci zařaďte pod Zábava (Entertainment), pokud katalog Android TV nemá Přizpůsobení, a v popisu napište, že jde o domovskou obrazovku.

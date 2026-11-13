@@ -21,9 +21,9 @@ The manifest still declares permissions. Collection stays No because the bytes d
 |---|---|---|---|---|---|
 | `ACCESS_FINE_LOCATION` (max SDK 32 only) | Location, approximate | No | No | App functionality | Used only to read the Wi-Fi name on Android 12 and older. Not GPS. Not background location. Ephemeral, on device. |
 | `NEARBY_WIFI_DEVICES` with `neverForLocation` | Do not declare as location | No | No | App functionality | Android 13 and newer, Wi-Fi name only. |
-| Accessibility service | Do not declare a data type | No | No | App functionality | Key code of a remote button, on device, only after Agree. The accessibility declaration is a separate form. See PLAY.md. |
 | Package visibility (`<queries>`, not `QUERY_ALL_PACKAGES`) | App info, installed apps, if forced | No | No | App functionality | Launchable apps, to draw tiles. The broad permission is not requested. |
-| `WRITE_SECURE_SETTINGS` | None | No | No | — | Signature permission. A Play install is not granted it. Sideload can grant it. It does not read user content. |
+
+The Play artifact (`bundlePlay`) does not declare an accessibility service and does not request `WRITE_SECURE_SETTINGS`. Do not fill the accessibility declaration for that upload. The sideload release build still has both; it is not the file you upload.
 | `ACCESS_NETWORK_STATE`, `ACCESS_WIFI_STATE` | None | No | No | App functionality | Online, Wi-Fi, or Ethernet, for the button label. Not transmitted. |
 
 Account data, financial info, messages, photos, audio, files, calendar, contacts, web history, device IDs, and crash logs: not accessed.

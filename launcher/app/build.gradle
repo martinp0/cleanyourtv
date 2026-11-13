@@ -18,10 +18,19 @@ android {
     buildTypes {
         release {
             // R8 strips and optimises the code (AndroidX included): smaller APK, faster start on a slow TV CPU.
+            // This is the sideload build CI size-gates: app/build/outputs/apk/release/app-release.apk
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             // Sideloaded over ADB, never published: sign with the debug key so it installs over a debug build.
+            signingConfig signingConfigs.debug
+        }
+        // Android TV artifact for Google Play. src/play/AndroidManifest.xml drops the accessibility
+        // services and WRITE_SECURE_SETTINGS. Same debug signing as release: the upload key stays off git.
+        // AAB: ./gradlew bundlePlay
+        play {
+            initWith release
+            matchingFallbacks = ['release']
             signingConfig signingConfigs.debug
         }
     }

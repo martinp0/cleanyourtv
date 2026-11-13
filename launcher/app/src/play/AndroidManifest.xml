@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Play variant only. The sideload release manifest is src/main and is unchanged.
+     Banner is already android:banner="@drawable/banner" (drawable-nodpi/banner.jpg, 320x180). -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Android TV catalog only: a touchscreen phone is not a target. -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true"
+        tools:replace="android:required" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false"
+        tools:replace="android:required" />
+
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:node="remove"
+        tools:ignore="ProtectedPermissions" />
+
+    <application
+        android:banner="@drawable/banner"
+        tools:replace="android:banner">
+        <!-- Same home activity as src/main. Declared here so this TV manifest carries LEANBACK_LAUNCHER.
+             drawable-nodpi/banner.jpg is 320x180. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            tools:node="merge">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Remote-button helpers stay in the sideload build. They are not in this Play artifact. -->
+        <service android:name=".HomeKeyService" tools:node="remove" />
+        <service android:name=".InputKeyService" tools:node="remove" />
+        <!-- Theme push over adb. The provider required WRITE_SECURE_SETTINGS, which this build does not request. -->
+        <provider android:name=".ThemeProvider" tools:node="remove" />
+    </application>
+</manifest>

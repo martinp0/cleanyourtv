@@ -146,7 +146,7 @@
          last opened, e.g. "5 minutes ago" or "yesterday, 9:40 pm". -->
     <string name="last_opened">Last opened %1$s</string>
     <string name="store_data_title">Wi-Fi name</string>
-    <string name="store_data_body">Shows the Wi-Fi name on the network button. Not sent off the TV. No internet access. Android 12 and older: location permission, no GPS, location not shared. Android 13 and newer: nearby Wi-Fi devices, not location. Not now leaves the button as Wi-Fi.</string>
+    <string name="store_data_body">Wi-Fi name on the network button. No internet. Android 12 and older: location permission, no GPS. Android 13+: nearby Wi-Fi, not location. Not now: button says Wi-Fi.</string>
     <string name="store_agree">Agree</string>
     <string name="store_not_now">Not now</string>
     <string name="store_a11y_title">Remote buttons</string>

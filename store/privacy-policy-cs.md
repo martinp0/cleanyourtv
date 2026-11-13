@@ -17,7 +17,6 @@ Launcher neshromažďuje osobní údaje a neodesílá data z televize. Nemá opr
 
 - K aplikacím, které se mohou objevit na domovské obrazovce, aby mohl kreslit dlaždice. Seznam zůstává v televizi.
 - K názvu sítě Wi-Fi, jen když souhlasíte, jako k popisku tlačítka sítě. Název zůstává v televizi. Na Androidu 12 a starším Android pro toto čtení vyžaduje oprávnění k poloze. Launcher nepoužívá GPS a polohu nesdílí. Na Androidu 13 a novějším místo toho používá oprávnění k zařízením Wi-Fi v okolí a toto oprávnění je uvedené tak, že neslouží ke zjištění polohy.
-- Ke stiskům kláves ovladače, jen když souhlasíte a je zapnutý pomocník tlačítek. Pomocník dostane stisknutou klávesu. Nečte obrazovku, text psaný v jiných aplikacích ani hesla a klávesu nesdílí.
 - K tomu, zda je spojení Wi-Fi, Ethernet nebo offline, jako k popisku téhož tlačítka. Nikam se to neposílá.
 
 ## Sdílení

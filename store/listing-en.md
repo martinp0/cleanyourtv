@@ -21,10 +21,7 @@ It replaces the stock home screen with a black screen, a dock of your apps, and 
 
 The app does not connect to the internet. It has no internet permission. Nothing it sees is sent off the TV.
 
-What it can do, and only after you agree on screen:
-
-- Show the Wi-Fi network name on the network button. The name stays on the TV. On Android 12 and older, Android requires a location permission for that read. The app does not use GPS. On Android 13 and newer it asks for nearby Wi-Fi devices instead, not location. If you decline, the button says Wi-Fi.
-- Optional remote-button helpers. They use Android’s accessibility service to notice a remote key, not to read the screen. One opens the input list when you press Input. The other opens this home screen when a remote sends the wrong Home key. They are off until you agree and then turn them on in Android’s accessibility settings. This is not a disability tool.
+After you agree on screen, it can show the Wi-Fi network name on the network button. The name stays on the TV. On Android 12 and older, Android requires a location permission for that read. The app does not use GPS. On Android 13 and newer it asks for nearby Wi-Fi devices instead, not location. If you decline, the button says Wi-Fi.
 
 The list of apps on the TV is read only to draw tiles. It stays on the TV.
 
@@ -36,6 +33,6 @@ No purchases. No ads.
 
 ## Category
 
-Personalization
+Android TV only. Do not opt the listing into phones or tablets.
 
-If you also distribute an Android TV form factor and that catalog has no Personalization category, file the TV form under Entertainment and say in the TV description that it is a home screen.
+File the TV app under Entertainment if the Android TV catalog has no Personalization category, and say in the description that it is a home screen. Personalization is the phone-catalog name and is not used for this upload.

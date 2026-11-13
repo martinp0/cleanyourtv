@@ -1,11 +1,13 @@
 package com.gathin.tvhome;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.PackageManager;
 
 /**
- * Choices for the two store disclosures ({@link DisclosureActivity}).
- * Unset means the question has not been asked yet. Not now is a real answer: Home keeps working,
- * and the matching read or remote-button helper stays off until the person agrees later.
+ * Choices for the store questions. Unset means the question has not been asked yet.
+ * Not now is a real answer: Home keeps working, and the matching read stays off until Agree.
+ * The remote-button question exists only when those services are in this build's manifest.
  */
 final class StoreConsent {
     static final String DATA = "store_data_choice";
@@ -20,11 +22,26 @@ final class StoreConsent {
 
     private StoreConsent() {}
 
-    /** The next full-screen question, or null when both have been answered. Privacy is not in this chain. */
+    /** Sideload: both questions. Play: Wi-Fi name only, because the helpers are not in that manifest. */
     static String nextKind(int data, int accessibility) {
+        return nextKind(data, accessibility, true);
+    }
+
+    static String nextKind(int data, int accessibility, boolean remoteHelpers) {
         if (data == UNSET) return KIND_DATA;
-        if (accessibility == UNSET) return KIND_ACCESSIBILITY;
+        if (remoteHelpers && accessibility == UNSET) return KIND_ACCESSIBILITY;
         return null;
+    }
+
+    /** True when this install still declares InputKeyService. The Play manifest removes it. */
+    static boolean hasRemoteHelpers(Context context) {
+        try {
+            context.getPackageManager().getServiceInfo(
+                    new ComponentName(context.getPackageName(), "com.gathin.tvhome.InputKeyService"), 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException missing) {
+            return false;
+        }
     }
 
     static boolean mayReadWifiName(int data) {
@@ -36,7 +53,7 @@ final class StoreConsent {
     }
 
     static String nextKind(Context context) {
-        return nextKind(choice(context, DATA), choice(context, A11Y));
+        return nextKind(choice(context, DATA), choice(context, A11Y), hasRemoteHelpers(context));
     }
 
     static boolean mayReadWifiName(Context context) {

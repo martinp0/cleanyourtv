@@ -139,6 +139,15 @@ public final class LauncherSettingsActivity extends Activity {
         });
         findViewById(R.id.tvSettingsChoice).setOnClickListener(v ->
                 open(SystemSettings.intent(this, Settings.ACTION_SETTINGS)));
+        findViewById(R.id.privacyChoice).setOnClickListener(v ->
+                StoreDialogs.show(this, StoreConsent.KIND_PRIVACY, null));
+        View remoteButtons = findViewById(R.id.remoteButtonsChoice);
+        if (StoreConsent.hasRemoteHelpers(this)) {
+            remoteButtons.setOnClickListener(v ->
+                    StoreDialogs.show(this, StoreConsent.KIND_ACCESSIBILITY, () -> { }));
+        } else {
+            remoteButtons.setVisibility(View.GONE);
+        }
         refresh();
         if (config.launcherSettingsButton) reorderChoice.requestFocus();
         else columnChoices[Math.max(0, Math.min(columns - 4, 3))].requestFocus();

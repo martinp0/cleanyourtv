@@ -97,6 +97,10 @@ import java.util.Set;
 public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private static final int LAUNCHER_SETTINGS_REQUEST = 42;
+    private static final int WIFI_NAME_REQUEST = 44;
+    /** True while a store question is up, so a second onResume does not stack another one. */
+    private boolean disclosureLaunched;
+    private boolean waitingForWifiPermission;
     /** Sent by QuickSettingsActivity: open Launcher settings from here so Home rebuilds when they close. */
     static final String ACTION_LAUNCHER_SETTINGS = "com.gathin.tvhome.action.LAUNCHER_SETTINGS";
     /** The system input switcher, forwarded here by InputsRequestActivity while handle_view_inputs is on. */
@@ -823,6 +827,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             recreate();
             return;
         }
+        // Questions first. Home still builds underneath; the Wi-Fi name is not read until Agree.
+        presentStoreQuestion();
         restartIdleClock();
         promptsPaused = false;
         if (grid.getAdapter() == null) grid.setAdapter(adapter);   // dropped by onTrimMemory
@@ -839,7 +845,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             default:
                 break;
         }
-        if (openLiveTvAfterBoot()) return;
+        if (StoreConsent.nextKind(this) == null && openLiveTvAfterBoot()) return;
         updateGreeting();
         updateRace();
         // The network and Inputs pills keep their state while Home is in the background, and callbacks update them
@@ -865,6 +871,50 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 handler.postDelayed(this::playPetalShower, 450);
             }
         }
+    }
+
+    /**
+     * Next unanswered store question, if there is one. The Wi-Fi permission dialog, when it is needed,
+     * sits immediately after Agree on the Wi-Fi question and before the remote-button question.
+     */
+    private void presentStoreQuestion() {
+        String kind = StoreConsent.nextKind(this);
+        if (kind == null) {
+            disclosureLaunched = false;
+            return;
+        }
+        if (disclosureLaunched || isFinishing()) return;
+        disclosureLaunched = true;
+        StoreDialogs.show(this, kind, () -> {
+            if (StoreConsent.KIND_DATA.equals(kind) && StoreConsent.mayReadWifiName(this)
+                    && requestWifiNamePermission()) {
+                return;
+            }
+            disclosureLaunched = false;
+            presentStoreQuestion();
+            if (StoreConsent.nextKind(this) == null) updateWifiLabel();
+        });
+    }
+
+    /** False when the permission is already granted and there is nothing to ask. */
+    private boolean requestWifiNamePermission() {
+        String permission = Build.VERSION.SDK_INT >= 33
+                ? "android.permission.NEARBY_WIFI_DEVICES"
+                : android.Manifest.permission.ACCESS_FINE_LOCATION;
+        if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) return false;
+        waitingForWifiPermission = true;
+        requestPermissions(new String[]{permission}, WIFI_NAME_REQUEST);
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        if (requestCode != WIFI_NAME_REQUEST || !waitingForWifiPermission) return;
+        waitingForWifiPermission = false;
+        disclosureLaunched = false;
+        presentStoreQuestion();
+        if (StoreConsent.nextKind(this) == null) updateWifiLabel();
     }
 
     /** Launcher settings' change count (Config.SETTINGS_REVISION_KEY); onResume rebuilds Home when it moved. */
@@ -2393,13 +2443,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 flame = 4;
                 steady = true;
             } else if (wifi) {
-                WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                WifiInfo info = wm != null ? wm.getConnectionInfo() : null;
-                String ssid = info != null ? info.getSSID() : null;
-                flame = info != null ? Math.max(1, Math.min(4, WifiManager.calculateSignalLevel(info.getRssi(), 5))) : 3;
-                if (ssid != null) {
-                    ssid = ssid.replace("\"", "").trim();
-                    if (!ssid.isEmpty() && !ssid.contains("unknown") && !ssid.equals("0x")) text = ssid;
+                flame = 3;
+                // The network name is read only after Agree. Not now keeps the button as "Wi-Fi".
+                if (StoreConsent.mayReadWifiName(this)) {
+                    WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    WifiInfo info = wm != null ? wm.getConnectionInfo() : null;
+                    String ssid = info != null ? info.getSSID() : null;
+                    if (info != null) {
+                        flame = Math.max(1, Math.min(4, WifiManager.calculateSignalLevel(info.getRssi(), 5)));
+                    }
+                    if (ssid != null) {
+                        ssid = ssid.replace("\"", "").trim();
+                        if (!ssid.isEmpty() && !ssid.contains("unknown") && !ssid.equals("0x")) text = ssid;
+                    }
                 }
             }
         } catch (Exception ignored) {
